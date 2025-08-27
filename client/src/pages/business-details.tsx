@@ -198,9 +198,9 @@ export default function BusinessDetails() {
                 <CardTitle className="flex items-center justify-between">
                   <span>Reviews ({business.reviewCount})</span>
                   <div className="flex items-center gap-2">
-                    <StarRating rating={Math.round(business.averageRating)} />
+                    <StarRating rating={Math.round(Number(business.averageRating))} />
                     <span className="text-sm text-muted-foreground">
-                      {business.averageRating.toFixed(1)} average
+                      {Number(business.averageRating).toFixed(1)} average
                     </span>
                   </div>
                 </CardTitle>
