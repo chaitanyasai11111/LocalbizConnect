@@ -20,10 +20,6 @@ export default function Navigation() {
             <Link href="/" className="text-foreground hover:text-primary transition-colors" data-testid="link-discover">
               Discover
             </Link>
-            <Link href="/add-business" className="text-foreground hover:text-primary transition-colors" data-testid="link-add-business">
-              Add Business
-            </Link>
-            
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
                 <Button variant="outline" asChild data-testid="button-add-business">

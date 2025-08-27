@@ -149,9 +149,9 @@ export default function BusinessDetails() {
                     </Badge>
                   </div>
                   <div className="text-right">
-                    <StarRating rating={Math.round(business.averageRating)} />
+                    <StarRating rating={Math.round(Number(business.averageRating))} />
                     <p className="text-sm text-muted-foreground mt-1" data-testid="text-rating">
-                      {business.averageRating.toFixed(1)} ({business.reviewCount} reviews)
+                      {Number(business.averageRating).toFixed(1)} ({business.reviewCount} reviews)
                     </p>
                   </div>
                 </div>

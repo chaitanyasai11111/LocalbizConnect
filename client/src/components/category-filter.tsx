@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Coffee, Hammer, Shirt, Utensils, Wrench, ShoppingBasket } from "lucide-react";
+import { Coffee, Hammer, Shirt, Utensils, Wrench, ShoppingBasket, Car, Scissors } from "lucide-react";
 import type { Category } from "@shared/schema";
 
 interface CategoryFilterProps {
@@ -10,12 +10,14 @@ interface CategoryFilterProps {
 
 export default function CategoryFilter({ categories, selectedCategory, onCategorySelect }: CategoryFilterProps) {
   const categoryIcons: Record<string, any> = {
-    'hair-salons': Hammer,
-    'repair-services': Wrench,
-    'tailors': Shirt,
-    'street-food': Utensils,
-    'hardware': Wrench,
+    'auto-repair': Car,
+    'coffee-shops': Coffee,
     'groceries': ShoppingBasket,
+    'hair-salons': Scissors,
+    'hardware': Hammer,
+    'repair-services': Wrench,
+    'street-food': Utensils,
+    'tailors': Shirt,
   };
 
   return (
