@@ -8,6 +8,7 @@ import Navigation from "@/components/navigation";
 import BusinessCard from "@/components/business-card";
 import CategoryFilter from "@/components/category-filter";
 import SearchBar from "@/components/search-bar";
+import GoogleMap from "@/components/google-map";
 import type { BusinessSummary, Category } from "@shared/schema";
 
 export default function Home() {
@@ -20,11 +21,17 @@ export default function Home() {
   });
 
   const { data: businesses = [], isLoading } = useQuery<BusinessSummary[]>({
-    queryKey: ["/api/businesses", { 
-      search: searchQuery, 
-      categoryId: selectedCategory, 
-      sortBy 
-    }],
+    queryKey: ["/api/businesses", searchQuery, selectedCategory, sortBy],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (searchQuery) params.append('search', searchQuery);
+      if (selectedCategory) params.append('categoryId', selectedCategory);
+      if (sortBy) params.append('sortBy', sortBy);
+      
+      const response = await fetch(`/api/businesses?${params.toString()}`);
+      if (!response.ok) throw new Error('Failed to fetch businesses');
+      return response.json();
+    },
     enabled: true,
   });
 
@@ -135,19 +142,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Map placeholder */}
+      {/* Interactive Map */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Explore on Map</h2>
           
           <Card className="overflow-hidden">
-            <div className="h-96 bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center relative">
-              <div className="text-center">
-                <div className="text-6xl mb-4">🗺️</div>
-                <p className="text-xl text-blue-600 font-semibold">Interactive Map View</p>
-                <p className="text-blue-500 mt-2">Map integration coming soon</p>
-              </div>
-            </div>
+            <GoogleMap 
+              businesses={businesses}
+              height="500px"
+              onBusinessSelect={(businessId) => {
+                window.location.href = `/business/${businessId}`;
+              }}
+            />
           </Card>
         </div>
       </section>

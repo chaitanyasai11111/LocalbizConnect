@@ -12,6 +12,7 @@ import { isUnauthorizedError } from "@/lib/authUtils";
 import Navigation from "@/components/navigation";
 import StarRating from "@/components/star-rating";
 import ReviewForm from "@/components/review-form";
+import GoogleMap from "@/components/google-map";
 import type { BusinessWithDetails, Review } from "@shared/schema";
 
 export default function BusinessDetails() {
@@ -238,7 +239,7 @@ export default function BusinessDetails() {
                                 {review.user.firstName || review.user.email?.split('@')[0] || "Anonymous"}
                               </p>
                               <p className="text-sm text-muted-foreground">
-                                {new Date(review.createdAt).toLocaleDateString()}
+                                {review.createdAt ? new Date(review.createdAt).toLocaleDateString() : 'Recently'}
                               </p>
                             </div>
                           </div>
@@ -264,7 +265,17 @@ export default function BusinessDetails() {
                 <CardTitle>Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full" data-testid="button-get-directions">
+                <Button 
+                  className="w-full" 
+                  data-testid="button-get-directions"
+                  onClick={() => {
+                    if (business.latitude && business.longitude) {
+                      window.open(`https://www.google.com/maps/dir/?api=1&destination=${business.latitude},${business.longitude}`, '_blank');
+                    } else {
+                      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(business.address)}`, '_blank');
+                    }
+                  }}
+                >
                   <MapPin className="w-4 h-4 mr-2" />
                   Get Directions
                 </Button>
@@ -276,6 +287,23 @@ export default function BusinessDetails() {
                 </Button>
               </CardContent>
             </Card>
+
+            {/* Map */}
+            {business.latitude && business.longitude && (
+              <Card className="mt-6">
+                <CardHeader>
+                  <CardTitle>Location</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <GoogleMap 
+                    businesses={[business]}
+                    center={{ lat: business.latitude, lng: business.longitude }}
+                    zoom={15}
+                    height="300px"
+                  />
+                </CardContent>
+              </Card>
+            )}
 
             {/* Similar Businesses */}
             <Card className="mt-6">

@@ -190,9 +190,9 @@ export default function Landing() {
                       </Badge>
                     </div>
                     <div className="text-right">
-                      <StarRating rating={Math.round(business.averageRating)} />
+                      <StarRating rating={Math.round(Number(business.averageRating))} />
                       <p className="text-sm text-muted-foreground" data-testid={`text-rating-${business.id}`}>
-                        {business.averageRating.toFixed(1)} ({business.reviewCount} reviews)
+                        {Number(business.averageRating).toFixed(1)} ({business.reviewCount} reviews)
                       </p>
                     </div>
                   </div>

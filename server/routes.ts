@@ -21,6 +21,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Config routes
+  app.get('/api/config', (req, res) => {
+    res.json({
+      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+    });
+  });
+
   // Category routes
   app.get('/api/categories', async (req, res) => {
     try {

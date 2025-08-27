@@ -135,19 +135,17 @@ export class DatabaseStorage implements IStorage {
       .limit(limit)
       .offset(offset);
 
-    // Apply sorting
+    const results = await query;
+
+    // Apply sorting after the query
     switch (sortBy) {
       case 'rating':
-        query = query.orderBy(desc(sql`AVG(${reviews.rating})`));
-        break;
+        return results.sort((a, b) => b.averageRating - a.averageRating);
       case 'name':
-        query = query.orderBy(asc(businesses.name));
-        break;
+        return results.sort((a, b) => a.name.localeCompare(b.name));
       default:
-        query = query.orderBy(desc(businesses.createdAt));
+        return results.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     }
-
-    return await query;
   }
 
   async getBusinessById(id: string): Promise<BusinessWithDetails | undefined> {
@@ -211,7 +209,7 @@ export class DatabaseStorage implements IStorage {
       .update(businesses)
       .set({ isActive: false })
       .where(eq(businesses.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount || 0) > 0;
   }
 
   async getBusinessesByUser(userId: string): Promise<BusinessSummary[]> {
@@ -280,7 +278,7 @@ export class DatabaseStorage implements IStorage {
 
   async deleteReview(id: string): Promise<boolean> {
     const result = await db.delete(reviews).where(eq(reviews.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount || 0) > 0;
   }
 
   async getUserReview(businessId: string, userId: string): Promise<Review | undefined> {
