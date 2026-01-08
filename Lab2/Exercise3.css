@@ -1,0 +1,54 @@
+body {
+    font-family: sans-serif;
+    padding: 20px;
+    background-color: #f0f2f5;
+}
+
+h1 { text-align: center; }
+
+/* Input area styling */
+.input-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input { padding: 10px; width: 250px; }
+button { padding: 10px 20px; cursor: pointer; background-color: #007BFF; color: white; border: none; }
+
+/* The Board (Flexbox allows side-by-side columns) */
+.board {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Individual Columns */
+.column {
+    background-color: white;
+    width: 30%;
+    min-height: 400px; /* Ensures drop area is big enough */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.column h2 { text-align: center; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+
+/* Draggable Task Card Styling */
+.task-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    cursor: grab;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Specific style for completed tasks */
+.task-completed {
+    background-color: #d4edda; /* Light green */
+    border-color: #c3e6cb;
+    text-decoration: line-through;
+    color: #155724;
+}

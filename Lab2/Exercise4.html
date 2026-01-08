@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management System</title>
+    <link rel="stylesheet" href="Exercise4.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>User Registration</h1>
+
+        <div class="form-box">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="number" id="mobile" placeholder="Mobile (10 digits)" required>
+            <input type="password" id="password" placeholder="Password (Min 6 chars)" required>
+            
+            <button onclick="registerUser()">Register</button>
+        </div>
+
+        <hr>
+
+        <h2>Registered Users</h2>
+        <button class="clear-btn" onclick="clearAllUsers()">Clear All Users</button>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                </tbody>
+        </table>
+    </div>
+
+    <script src="Exercise4.js"></script>
+
+</body>
+</html>

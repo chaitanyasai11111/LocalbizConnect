@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Multimedia Player</title>
+    <style>
+        
+        body { font-family: sans-serif; padding: 20px; }
+        .player-box { 
+            border: 1px solid #ccc; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            width: 1000px;
+        }
+        h2 { margin-top: 0; }
+        span { font-weight: bold; color: blue; }
+    </style>
+</head>
+<body>
+
+    <h1>Multimedia Dashboard</h1>
+
+    <div class="player-box">
+        <h2>Audio Player</h2>
+        <audio id="myAudio" controls>
+            <source src="audio.mp3" type="audio/mpeg">
+        </audio>
+        <p>Time: <span id="audioTime">0.00</span> seconds</p>
+    </div>
+
+    <div class="player-box">
+        <h2>Video Player</h2>
+        <video id="myVideo" width="1000" controls>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+        <p>Time: <span id="videoTime">0.00</span> seconds</p>
+    </div>
+
+    <script src="Exercise2.js"></script>
+
+</body>
+</html>
